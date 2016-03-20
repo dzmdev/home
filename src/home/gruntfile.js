@@ -8,7 +8,7 @@
         typescript: {
             all: {
                 src: ['Views/**/*.ts'],
-                dest: 'wwwroot/js',
+                dest: 'wwwroot',
                 options: {
                     module: 'amd',
                     target: 'es5',
@@ -18,7 +18,7 @@
             },
             watch: {
                 src: ['Views/**/*.ts'],
-                dest: 'wwwroot/js',
+                dest: 'wwwroot',
                 options: {
                     module: 'amd',
                     target: 'es5',
