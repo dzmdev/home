@@ -1,8 +1,17 @@
 ﻿module.exports = function (grunt) {
     grunt.initConfig({
         clean: {
-            js: ["wwwroot/js/*"],
-            css: ["wwwroot/css/*"]
+            all: ["wwwroot/*", "!wwwroot/web.config"]
+        },
+
+        copy: {
+            components: {
+                cwd: "node_modules",
+                src: "**",
+                dest: "wwwroot/components",
+                expand: true,
+                filter: "isFile"
+            }
         },
         
         typescript: {
@@ -34,8 +43,9 @@
     });
 
     grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks('grunt-typescript');
 
-    grunt.registerTask('default', ["clean", "typescript:all"]);
+    grunt.registerTask('default', ["clean", "typescript:all", "copy:components"]);
     grunt.registerTask('watch', ["typescript:watch"]);
 };  
