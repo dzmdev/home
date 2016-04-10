@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 
-namespace home.Views.Home.Components
+namespace home.ViewComponents.Home
 {
     public class Portfolio : ViewComponent
     {
