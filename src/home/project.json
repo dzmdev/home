@@ -17,18 +17,6 @@
     "web": "Microsoft.AspNet.Server.Kestrel"
   },
 
-  "scripts": {
-    "prepare": "npm install",
-    "prebuild": "npm run build",
-    "publish": [ "dnvm install latest -a x64 -os win", "dnu publish  -o ..\\..\\bin --runtime active" ],
-    "clean": "npm run clean"
-  },
-
-  "-vs-binding": {
-    "BeforeBuild": [ "prebuild" ],
-    "Clean": [ "clean" ]
-  },
-
   "frameworks": {
     "dnx451": { },
     "dnxcore50": { }
@@ -39,7 +27,8 @@
     "gruntfile.js",
     "package.json",
     "**/Views/**.js",
-    "**/Views/**.ts",
+    "**/Views/**.less",
+    "**/Views/**.jpg",
     "**.vspscc"
   ]
 }

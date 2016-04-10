@@ -7,36 +7,31 @@
         copy: {
             components: {
                 cwd: "node_modules",
-                src: "**",
-                dest: "wwwroot/components",
-                expand: true,
-                filter: "isFile"
+                src: ["bootstrap/**", "font-awesome/**", "glyphicons-halflings/**", "animate.css/**", "jquery/**", "jquery.easing/**"],
+                dest: "wwwroot/node_modules",
+                expand: true
+            },
+            img: {
+                cwd: "views",
+                src: ["home/img/**"],
+                dest: "wwwroot",
+                expand: true
+            },
+            js: {
+                cwd: "views",
+                src: ["home/**/*.js"],
+                dest: "wwwroot",
+                expand: true
             }
         },
         
-        typescript: {
-            all: {
-                src: ['Views/**/*.ts'],
-                dest: 'wwwroot',
+        less: {
+            development: {
                 options: {
-                    module: 'amd',
-                    target: 'es5',
-                    removeComments: true,
-                    rootDir: 'Views'
-                }
-            },
-            watch: {
-                src: ['Views/**/*.ts'],
-                dest: 'wwwroot',
-                options: {
-                    module: 'amd',
-                    target: 'es5',
-                    removeComments: true,
-                    rootDir: 'Views',
-                    watch: {
-                        before: ["clean:js"],
-                        atBegin: true
-                    }
+                    paths:["views/home/less"]
+                },
+                files: {
+                    "wwwroot/home/home.css": "views/home/home.less"
                 }
             }
         }
@@ -44,8 +39,7 @@
 
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-copy");
-    grunt.loadNpmTasks('grunt-typescript');
+    grunt.loadNpmTasks('grunt-contrib-less');
 
-    grunt.registerTask('default', ["clean", "typescript:all", "copy:components"]);
-    grunt.registerTask('watch', ["typescript:watch"]);
+    grunt.registerTask('default', ["clean:all", "less:development", "copy"]);
 };  
