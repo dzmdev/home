@@ -11,11 +11,12 @@
     <meta name="description" content="dzmitry martavoi's home page'">
     <meta name="author" content="dzmitry martavoi">
 
-    <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
     <link rel="stylesheet" href="~/node_modules/animate.css/animate.min.css" type="text/css">
     <link rel="stylesheet" href="~/node_modules/font-awesome/css/font-awesome.min.css" type="text/css">
 
     <link rel="stylesheet" href="~/home/theme.css" type="text/css">
+    <link rel="stylesheet" href="~/home/timeline.css" type="text/css">
 
     <title> Dzmitry Martavoi </title>
 </head>
@@ -23,14 +24,20 @@
 <body id="page-top" data-spy="scroll" data-trigger=".navbar-fixed-top" data-offset="50">
 @await Component.InvokeAsync(typeof (Navigation))
 
-@await Component.InvokeAsync(typeof(About))
+@await Component.InvokeAsync(typeof (About))
 
 <section id="services">
     @await Component.InvokeAsync(typeof (Services))
 </section>
+
 <section class="no-padding" id="portfolio">
     @await Component.InvokeAsync(typeof (Portfolio))
 </section>
+
+<section id="career">
+    @await Component.InvokeAsync(typeof (Career))
+</section>
+
 <section id="contact">
     @await Component.InvokeAsync(typeof (Contact))
 </section>

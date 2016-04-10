@@ -21,11 +21,9 @@
         
         less: {
             prod: {
-                options: {
-                    paths:["views/home/style"]
-                },
                 files: {
-                    "wwwroot/home/theme.css": "views/home/style/theme.less"
+                    "wwwroot/home/theme.css": "views/home/style/theme.less",
+                    "wwwroot/home/timeline.css": "views/home/style/timeline.less"
                 }
             }
         },
