@@ -1,7 +1,7 @@
 ﻿module.exports = function (grunt) {
     grunt.initConfig({
         clean: {
-            all: ["wwwroot/*", "!wwwroot/web.config"]
+            wwwroot: ["wwwroot/*", "!wwwroot/web.config"]
         },
 
         copy: {
@@ -16,22 +16,24 @@
                 src: ["home/img/**"],
                 dest: "wwwroot",
                 expand: true
-            },
-            js: {
-                cwd: "views",
-                src: ["home/**/*.js"],
-                dest: "wwwroot",
-                expand: true
             }
         },
         
         less: {
-            development: {
+            prod: {
                 options: {
-                    paths:["views/home/less"]
+                    paths:["views/home/style"]
                 },
                 files: {
-                    "wwwroot/home/home.css": "views/home/home.less"
+                    "wwwroot/home/theme.css": "views/home/style/theme.less"
+                }
+            }
+        },
+        
+        browserify: {
+            prod: {
+                files: {
+                    "wwwroot/home/home.js": ["views/home/js/home.module.js"]
                 }
             }
         }
@@ -40,6 +42,7 @@
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-browserify');
 
-    grunt.registerTask('default', ["clean:all", "less:development", "copy"]);
+    grunt.registerTask("default", ["clean:wwwroot", "less:prod", "browserify:prod", "copy"]);
 };  
