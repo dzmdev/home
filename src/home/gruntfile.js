@@ -7,7 +7,7 @@
         copy: {
             components: {
                 cwd: "node_modules",
-                src: ["bootstrap/**", "font-awesome/**", "glyphicons-halflings/**", "animate.css/**", "jquery/**", "jquery.easing/**"],
+                src: ["bootstrap/**", "font-awesome/**", "animate.css/**"],
                 dest: "wwwroot/node_modules",
                 expand: true
             },
