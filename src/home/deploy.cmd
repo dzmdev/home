@@ -96,13 +96,15 @@ echo Handling HOOKs.
 
 pushd .\src\home
 
+npm config set strict-ssl false
+
 :: HOOK. Install npm packages
 echo npm install
-npm install
+call npm install
 
 :: HOOK. Run grunt
 echo grunt
-npm install grunt-cli -g
+call npm install grunt-cli -g
 grunt
 
 popd
