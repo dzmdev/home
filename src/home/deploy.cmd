@@ -94,12 +94,19 @@ IF !ERRORLEVEL! NEQ 0 goto error
 
 echo Handling HOOKs.
 
-:: HOOK. npm install
-call npm install
+:: HOOK. Install npm packages  
+if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then  
+  eval $NPM_CMD install  
+  exitWithMessageOnError "npm failed"  
+fi  
 
-:: HOOK. grunt
-call npm install grunt-cli -g
-call grunt
+:: HOOK. Run grunt  
+if [ -e "$DEPLOYMENT_SOURCE/Gruntfile.js" ]; then  
+  eval $NPM_CMD install grunt-cli  
+  exitWithMessageOnError "installing grunt failed"  
+  ./node_modules/.bin/grunt --no-color clean common dist  
+  exitWithMessageOnError "grunt failed"  
+fi  
 
 :: 4. Run DNU Bundle
 call %DNX_RUNTIME%\bin\dnu publish "project.json" --runtime %DNX_RUNTIME% --out "%DEPLOYMENT_TEMP%" %SCM_DNU_PUBLISH_OPTIONS%
