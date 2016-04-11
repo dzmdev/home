@@ -100,11 +100,11 @@ npm config set strict-ssl false
 
 :: HOOK. Install npm packages
 echo npm install
-call npm install
+npm install
 
 :: HOOK. Run grunt
 echo grunt
-call npm install grunt-cli -g
+npm install grunt-cli -g
 grunt
 
 popd
