@@ -92,61 +92,16 @@ IF !ERRORLEVEL! NEQ 0 goto error
 call %DNX_RUNTIME%\bin\dnu restore "%DEPLOYMENT_SOURCE%" %SCM_DNU_RESTORE_OPTIONS%
 IF !ERRORLEVEL! NEQ 0 goto error
 
-# Node Helpers
-# ------------
-
-exitWithMessageOnError () {
-  if [ ! $? -eq 0 ]; then
-    echo "An error has occurred during web site deployment."
-    echo $1
-    exit 1
-  fi
-}
-
-selectNodeVersion () {
-  if [[ -n "$KUDU_SELECT_NODE_VERSION_CMD" ]]; then
-    SELECT_NODE_VERSION="$KUDU_SELECT_NODE_VERSION_CMD \"$DEPLOYMENT_SOURCE\" \"$DEPLOYMENT_TARGET\" \"$DEPLOYMENT_TEMP\""
-    eval $SELECT_NODE_VERSION
-    exitWithMessageOnError "select node version failed"
-
-    if [[ -e "$DEPLOYMENT_TEMP/__nodeVersion.tmp" ]]; then
-      NODE_EXE=`cat "$DEPLOYMENT_TEMP/__nodeVersion.tmp"`
-      exitWithMessageOnError "getting node version failed"
-    fi
-    
-    if [[ -e "$DEPLOYMENT_TEMP/.tmp" ]]; then
-      NPM_JS_PATH=`cat "$DEPLOYMENT_TEMP/__npmVersion.tmp"`
-      exitWithMessageOnError "getting npm version failed"
-    fi
-
-    if [[ ! -n "$NODE_EXE" ]]; then
-      NODE_EXE=node
-    fi
-
-    NPM_CMD="\"$NODE_EXE\" \"$NPM_JS_PATH\""
-  else
-    NPM_CMD=npm
-    NODE_EXE=node
-  fi
-}
-
 echo Handling HOOKs.
 
 :: HOOK. Install npm packages  
 echo npm install
-if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then  
-  eval $NPM_CMD install  
-  exitWithMessageOnError "npm failed"  
-fi  
+eval npm install
 
 :: HOOK. Run grunt
 echo grunt
-if [ -e "$DEPLOYMENT_SOURCE/Gruntfile.js" ]; then  
-  eval $NPM_CMD install grunt-cli  
-  exitWithMessageOnError "installing grunt failed"  
-  ./node_modules/.bin/grunt --no-color clean common dist  
-  exitWithMessageOnError "grunt failed"  
-fi
+eval npm install grunt-cli  
+eval grunt
 
 :: 4. Run DNU Bundle
 call %DNX_RUNTIME%\bin\dnu publish "project.json" --runtime %DNX_RUNTIME% --out "%DEPLOYMENT_TEMP%" %SCM_DNU_PUBLISH_OPTIONS%
