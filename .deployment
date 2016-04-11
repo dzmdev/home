@@ -1,2 +1,2 @@
 [config]
-command = cd ./src/home & deploy.cmd
+command = cd ./src/home/deploy.cmd
