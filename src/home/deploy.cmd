@@ -96,7 +96,7 @@ echo Handling HOOKs.
 
 pushd .\src\home
 
-npm config set strict-ssl false
+npm config set registry http://registry.npmjs.org/
 
 :: HOOK. Install npm packages
 echo npm install
