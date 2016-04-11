@@ -92,6 +92,8 @@ IF !ERRORLEVEL! NEQ 0 goto error
 call %DNX_RUNTIME%\bin\dnu restore "%DEPLOYMENT_SOURCE%" %SCM_DNU_RESTORE_OPTIONS%
 IF !ERRORLEVEL! NEQ 0 goto error
 
+echo Handling HOOKs.
+
 :: HOOK. npm install
 call npm install
 
