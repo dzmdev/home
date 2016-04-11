@@ -98,12 +98,10 @@ pushd .\src\home
 
 :: HOOK. Install npm packages
 echo npm install
-npm install
-
-:: HOOK. Run grunt
-echo grunt
-npm install grunt-cli -g
-grunt
+IF EXIST "package.json" (
+  call :ExecuteCmd !NPM_CMD! install
+  IF !ERRORLEVEL! NEQ 0 goto error
+)
 
 popd
 
