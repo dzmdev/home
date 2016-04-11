@@ -94,14 +94,14 @@ IF !ERRORLEVEL! NEQ 0 goto error
 
 echo Handling HOOKs.
 
-:: HOOK. Install npm packages  
-npm install
-npm install
+:: HOOK. Install npm packages
+echo npm install
+npm install .\src\home\package.json
 
 :: HOOK. Run grunt
 echo grunt
-npm install grunt-cli  
-grunt
+npm install grunt-cli -g
+grunt .\src\home\gruntfile.js
 
 :: 4. Run DNU Bundle
 call %DNX_RUNTIME%\bin\dnu publish .\src\home\project.json --runtime %DNX_RUNTIME% --out "%DEPLOYMENT_TEMP%" %SCM_DNU_PUBLISH_OPTIONS%
