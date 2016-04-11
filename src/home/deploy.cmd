@@ -81,12 +81,14 @@ IF "%DEPLOYMENT_TARGET:~-1%"=="\" (
 
 :: 1. Set DNX Path
 set DNVM_CMD_PATH_FILE="%USERPROFILE%\.dnx\temp-set-envvars.cmd"
-set DNX_RUNTIME="%USERPROFILE%\.dnx\runtimes\dnx-CLR-win-x64.undefined"
 
 :: 2. Install DNX
 call :ExecuteCmd PowerShell -NoProfile -NoLogo -ExecutionPolicy unrestricted -Command "[System.Threading.Thread]::CurrentThread.CurrentCulture = ''; [System.Threading.Thread]::CurrentThread.CurrentUICulture = '';$CmdPathFile='%DNVM_CMD_PATH_FILE%';& '%SCM_DNVM_PS_PATH%' " install latest -arch x64 -r CLR %SCM_DNVM_INSTALL_OPTIONS%
 IF !ERRORLEVEL! NEQ 0 goto error
 
+
+echo %DEPLOYMENT_SOURCE%
+echo %SCM_DNU_RESTORE_OPTIONS%
 
 :: 3. Run DNU Restore
 call %DNX_RUNTIME%\bin\dnu restore "%DEPLOYMENT_SOURCE%" %SCM_DNU_RESTORE_OPTIONS%
@@ -109,7 +111,7 @@ if [ -e "$DEPLOYMENT_SOURCE/Gruntfile.js" ]; then
 fi  
 
 :: 4. Run DNU Bundle
-call %DNX_RUNTIME%\bin\dnu publish "project.json" --runtime %DNX_RUNTIME% --out "%DEPLOYMENT_TEMP%" %SCM_DNU_PUBLISH_OPTIONS%
+call %DNX_RUNTIME%\bin\dnu publish "project.json" -out "%DEPLOYMENT_TEMP%" %SCM_DNU_PUBLISH_OPTIONS%
 IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 5. KuduSync
