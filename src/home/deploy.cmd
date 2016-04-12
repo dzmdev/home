@@ -104,7 +104,10 @@ IF EXIST "package.json" (
 :: Run Grunt
 echo Running grunt
 IF EXIST "gruntfile.js" (
+  pushd ./node_modules/grunt
   eval $NPM_CMD install glob@^6.0.4 --save
+  popd
+
   call .\node_modules\.bin\grunt
   IF !ERRORLEVEL! NEQ 0 goto error
 )
