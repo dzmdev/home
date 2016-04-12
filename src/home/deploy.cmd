@@ -104,7 +104,7 @@ IF EXIST "package.json" (
 :: Run Grunt
 echo Running grunt
 IF EXIST "gruntfile.js" (
-  pushd ./node_modules/grunt
+  pushd .\node_modules\grunt
   call :ExecuteCmd npm install glob@^6.0.4 --save
   popd
 
