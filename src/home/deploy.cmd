@@ -92,15 +92,19 @@ IF !ERRORLEVEL! NEQ 0 goto error
 call %DNX_RUNTIME%\bin\dnu restore "%DEPLOYMENT_SOURCE%" %SCM_DNU_RESTORE_OPTIONS%
 IF !ERRORLEVEL! NEQ 0 goto error
 
-echo Handling HOOKs.
-dir
-
 pushd .\src\home
 
-:: HOOK. Install npm packages
-echo npm install
+:: Install npm packages
+echo installing node modules
 IF EXIST "package.json" (
   call :ExecuteCmd npm install
+  IF !ERRORLEVEL! NEQ 0 goto error
+)
+
+:: Run Grunt
+echo Running grunt
+IF EXIST "gruntfile.js" (
+  call :ExecuteCmd ./node_modules/.bin/grunt
   IF !ERRORLEVEL! NEQ 0 goto error
 )
 
