@@ -104,7 +104,7 @@ IF EXIST "package.json" (
 :: Run Grunt
 echo Running grunt
 IF EXIST "gruntfile.js" (
-  call ./node_modules/.bin/grunt
+  call .\node_modules\.bin\grunt
   IF !ERRORLEVEL! NEQ 0 goto error
 )
 
