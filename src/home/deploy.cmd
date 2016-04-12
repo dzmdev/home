@@ -93,13 +93,14 @@ call %DNX_RUNTIME%\bin\dnu restore "%DEPLOYMENT_SOURCE%" %SCM_DNU_RESTORE_OPTION
 IF !ERRORLEVEL! NEQ 0 goto error
 
 echo Handling HOOKs.
+dir
 
 pushd .\src\home
 
 :: HOOK. Install npm packages
 echo npm install
 IF EXIST "package.json" (
-  call :ExecuteCmd !NPM_CMD! install
+  call :ExecuteCmd npm install
   IF !ERRORLEVEL! NEQ 0 goto error
 )
 
